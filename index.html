@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+  <head>
+  </head>
+  <body>
+    <input type="number" id="n-inp" min="1">
+    <button onclick="readjTable()">Adjust Table Amount</button>
+    <table id="table">
+      <tr>
+        <td><input type="number" id="n-inp-0" placeholder="1" value="3"></td>
+        <td><input type="number" id="n-out-0" placeholder="1" value="6"></td>
+      </tr>
+    </table>
+    <button onclick="checkTable()">Get Function</button>
+    <p id="finalv"></p>
+    <script>
+      const tableEle = document.getElementById("table"),
+            nInp = document.getElementById("n-inp"),
+            finalV = document.getElementById("finalv");
+
+      function checkTable() {
+        let tbl = [];
+        for (let i = 0; i < tableEle.children.length; i++) {
+          let inp = document.getElementById("n-inp-" + i).value;
+          let out = document.getElementById("n-out-" + i).value;
+          tbl.push([parseInt(inp), parseInt(out)])
+        }
+        finalV.textContent = check(table)
+      }
+      
+      function check(table) {
+          let str = "f(x) = 0"
+          for (let tb of table) {
+              let v = 1;
+              table.forEach(a => {
+                  if (a[0] != tb[0]) v *= tb[0] - a[0]
+              })
+
+              str += " + " + ((Math.round(tb[1] / v) == tb[1] / v) ? (tb[1] / v) : tb[1] + "/" + v)
+
+              table.forEach(a => {
+                  if (a[0] != tb[0]) str += "(x - " + a[0] + ")"
+              })
+          }
+          return str;
+      }
+
+      function readjTable() {
+        let am = parseInt(nInp.value)
+        let initialChildren = tableEle.children.length;
+        if (initialChildren < am) {
+          let i = 0;
+          for (let child of tableEle.children) {
+            if (i >= initialChildren) child.remove();
+            i++;
+          }
+        } else {
+          for (let i = 0; i < am; i++) {
+            if (i >= initialChildren) {
+              let tr = document.createElement("tr")
+              let inp = document.createElement("input")
+              let out = document.createElement("input")
+              inp.placeholder = "1";
+              out.placeholder = "1";
+              inp.id = "n-inp-" + i;
+              out.id = "n-out-" + i;
+              inp.value = "1";
+              out.value = "2";
+              
+              tr.appendChild(inp)
+              tr.appendChild(out)
+              tableEle.appendChild(tr)
+            }
+          }
+        }
+        
+      }
+    </script>
+  </body>
+</html>
