@@ -47,33 +47,23 @@
 
       function readjTable() {
         let am = parseInt(nInp.value)
-        let initialChildren = tableEle.children.length;
-        if (initialChildren < am) {
-          let i = 0;
-          for (let child of tableEle.children) {
-            if (i >= initialChildren) child.remove();
-            i++;
-          }
-        } else {
-          for (let i = 0; i < am; i++) {
-            if (i >= initialChildren) {
-              let tr = document.createElement("tr")
-              let inp = document.createElement("input")
-              let out = document.createElement("input")
-              inp.placeholder = "1";
-              out.placeholder = "1";
-              inp.id = "n-inp-" + i;
-              out.id = "n-out-" + i;
-              inp.value = "1";
-              out.value = "2";
-              
-              tr.appendChild(inp)
-              tr.appendChild(out)
-              tableEle.appendChild(tr)
-            }
-          }
-        }
-        
+        tableEle.innerHTML = "";
+        for (let i = 0; i < am; i++) {
+          let tr = document.createElement("tr")
+          let inp = document.createElement("input")
+          let out = document.createElement("input")
+          inp.placeholder = "1";
+          out.placeholder = "1";
+          inp.id = "n-inp-" + i;
+          out.id = "n-out-" + i;
+          inp.value = "1";
+          out.value = "2";
+
+          tr.appendChild(inp)
+          tr.appendChild(out)
+          tableEle.appendChild(tr)
+
+        }        
       }
     </script>
   </body>
